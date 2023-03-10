@@ -13,7 +13,7 @@ public class PlayerNear : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        text_test.text = "Player not is near";
+        text_test.text = "Player is not near";
     }
 
     // Update is called once per frame
@@ -26,7 +26,7 @@ public class PlayerNear : MonoBehaviour
         }
         else 
         {
-            text_test.text = "Player not is near";
+            text_test.text = "Player is not near";
         }
 
     }
