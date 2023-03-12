@@ -10,6 +10,8 @@ public class BotMovement : MonoBehaviour
     public Transform player;
     public List<GameObject> waypoints = new();
     int current_waypoint = 0;
+    Animator bot_animator;
+
 
     // Start is called before the first frame update
     private void Awake()
@@ -18,9 +20,22 @@ public class BotMovement : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(waypoints[current_waypoint].transform.position);
         current_waypoint++;
+        bot_animator = transform.GetComponent<Animator>();
     }
 
     bool just_interacted = false;
+
+
+    private void StartBotAnimation()
+    {
+        bot_animator.SetFloat("Speed_f", 0.26f);
+
+    }
+
+    private void StopBotAnimation()
+    {
+        bot_animator.SetFloat("Speed_f", 0f);
+    }
 
     // Update is called once per frame
     void Update()
@@ -31,17 +46,20 @@ public class BotMovement : MonoBehaviour
             just_interacted = true;
             Debug.Log("Chase player");
             ChasePlayer();
+            StartBotAnimation();
         }
         else if (player_distance < 3f)
         {
             just_interacted = true;
             stop_move();
+            StopBotAnimation();
         }
         else
         {
             if (just_interacted == true)
             {
                 stop_move();
+                StopBotAnimation();
                 StartCoroutine(nameof(pause_before_patrol));
             }
             else
@@ -49,6 +67,7 @@ public class BotMovement : MonoBehaviour
                 StopCoroutine(nameof(pause_before_patrol));
                 Debug.Log("Patroling");
                 Patroling();
+                StartBotAnimation();
                 just_interacted = false;
             }
         }
@@ -92,7 +111,7 @@ public class BotMovement : MonoBehaviour
         var lookPos = player.transform.position - transform.position;
         lookPos.y = 0;
         var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 1f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
     }
 
 }
