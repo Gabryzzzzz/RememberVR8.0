@@ -8222,7 +8222,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 3}
     m_FontSize: 25
     m_FontStyle: 1
     m_BestFit: 0
@@ -8565,7 +8565,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 3}
     m_FontSize: 25
     m_FontStyle: 1
     m_BestFit: 0
@@ -16390,6 +16390,7 @@ GameObject:
   - component: {fileID: 1227290619}
   - component: {fileID: 1227290622}
   - component: {fileID: 1227290623}
+  - component: {fileID: 1227290624}
   m_Layer: 0
   m_Name: CommandManager
   m_TagString: Untagged
@@ -16478,6 +16479,19 @@ MonoBehaviour:
   game_object: {fileID: 0}
   player: {fileID: 0}
   text_test: {fileID: 654152246}
+--- !u!114 &1227290624
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1227290618}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e39ca412c304ea48bfe1fd823065ee7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pftextHelper: {fileID: 8355590478619181762, guid: 37b752051ecac3342a8615298452b9fa, type: 3}
 --- !u!4 &1234935274 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4818126417322290, guid: 51917b8e41ef6a1469249c9dfee70390, type: 3}
