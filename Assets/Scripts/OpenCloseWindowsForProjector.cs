@@ -11,7 +11,8 @@ public class OpenCloseWindowsForProjector : MonoBehaviour
     public GameObject soffitto_telo;
     Animator window_telo_Animator;
     Animator soffitto_telo_Animator;
-    public Text window_state; 
+    public Text window_state;
+    bool isOpen = true;
 
     // Start is called before the first frame update
     void Start()
@@ -39,5 +40,35 @@ public class OpenCloseWindowsForProjector : MonoBehaviour
             window_telo_Animator.SetTrigger("close");
             soffitto_telo_Animator.SetTrigger("close");
         }
+    }
+
+    public void openCloseToggle()
+    {
+        if(isOpen == true)
+        {
+            isOpen = false;
+            closeWindow();
+        }
+        else
+        {
+            isOpen = true;
+            openWindow();
+        }
+    }
+
+    public void closeWindow()
+    {
+        window_state.text = "Window is closed";
+        Debug.Log("m_Animator.SetTrigger(\"close\");");
+        window_telo_Animator.SetTrigger("close");
+        soffitto_telo_Animator.SetTrigger("close");
+    }
+
+    public void openWindow()
+    {
+        window_state.text = "Window is open";
+        Debug.Log("m_Animator.SetTrigger(\"open\");");
+        window_telo_Animator.SetTrigger("open");
+        soffitto_telo_Animator.SetTrigger("open");
     }
 }

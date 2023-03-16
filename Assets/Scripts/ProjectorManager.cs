@@ -28,6 +28,26 @@ public class ProjectorManager : MonoBehaviour
         source_audio_projectore.Stop();
     }
 
+
+    public void startVideo()
+    {
+        projector_light.enabled = !projector_light.enabled;
+        projector_light_trail.enabled = !projector_light_trail.enabled;
+        light_trail.SetActive(projector_light.enabled);
+        if (projector_light.enabled)
+        {
+            source_audio_projectore.time = 2.5f;
+            source_audio_projectore.Play();
+            player.Play();
+        }
+        else
+        {
+            source_audio_projectore.time = 26f;
+            player.Stop(); // or beep.Stop()
+                           //StartCoroutine(nameof(StopAfter));
+        }
+    }
+
     int current_clip = 0;
     // Update is called once per frame
     void Update()
