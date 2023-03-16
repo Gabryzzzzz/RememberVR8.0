@@ -44,7 +44,7 @@ public class BotMovement : MonoBehaviour
         if (player_distance < 5f && player_distance > 3f)
         {
             just_interacted = true;
-            Debug.Log("Chase player");
+            //Debug.Log("Chase player");
             ChasePlayer();
             StartBotAnimation();
         }
@@ -65,7 +65,7 @@ public class BotMovement : MonoBehaviour
             else
             {
                 StopCoroutine(nameof(pause_before_patrol));
-                Debug.Log("Patroling");
+                //Debug.Log("Patroling");
                 Patroling();
                 StartBotAnimation();
                 just_interacted = false;
