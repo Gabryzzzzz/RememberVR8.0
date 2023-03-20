@@ -65,7 +65,7 @@ public class BotMovement : MonoBehaviour
             else
             {
                 StopCoroutine(nameof(pause_before_patrol));
-                Debug.Log("Patroling");
+                //Debug.Log("Patroling");
                 Patroling();
                 StartBotAnimation();
                 just_interacted = false;

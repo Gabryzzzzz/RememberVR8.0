@@ -8,10 +8,13 @@ using UnityEngine.UI;
 using UnityEngine.Networking;
 using System.IO;
 using System.Threading.Tasks;
+using SimpleJSON;
+using System.Text.RegularExpressions;
 
 public class ButtonRecordMp3 : MonoBehaviour
 {
     AudioClip myAudioClip;
+    public AudioSource sourceAud;
     public int toggle = 1;
     public GameObject button;
     public UnityEvent onPress;
@@ -19,6 +22,8 @@ public class ButtonRecordMp3 : MonoBehaviour
     GameObject presser;
     [SerializeField] bool isPressed;
     public int layer;
+    public bool toggleRec=false;
+    public bool hasEnded = true;
     void Start()
     {
         isPressed = false;
@@ -32,6 +37,7 @@ public class ButtonRecordMp3 : MonoBehaviour
             button.transform.localPosition = new Vector3(0, 0.03f, 0);
             presser = other.gameObject;
             onPress.Invoke();
+            print("PRESSED!");
             isPressed = true;
         }
     }
@@ -49,24 +55,35 @@ public class ButtonRecordMp3 : MonoBehaviour
 
     public void RecordingToggle()
     {
-        if(toggle == 1)
+        StartCoroutine(RecordingWavToggle());
+    }
+
+    public IEnumerator RecordingWavToggle()
+    {
+        if(hasEnded == true)
         {
-            print("Inizio clip");
-            myAudioClip = Microphone.Start(null, false, 10, 44100);
-            toggle = 0;
-        }
-        else
-        {
-            print("Fineclip -- crea Wav");
-            SavWav.Save("VoiceMp3", myAudioClip);
-            print("Generato Wav");
-            StartCoroutine(afterRecord());
-            toggle = 1;
+            if (toggleRec == false)
+            {
+                print("Inizio clip");
+                myAudioClip = Microphone.Start(null, false, 10, 44100);
+                toggleRec = true;
+            }
+            else
+            {
+                print("Fineclip -- crea Wav");
+                UnityEngine.Microphone.End(null);
+                SavWav.Save("VoiceMp3", myAudioClip);
+                print("Generato Wav");
+                StartCoroutine(afterRecord());
+                toggleRec = false;
+                yield return null;
+            }
         }
     }
 
     public IEnumerator afterRecord()
     {
+        hasEnded = false;
         print("Iniziato afterRecord");
 
         var token = "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"; // sostituisci con il tuo token
@@ -88,6 +105,7 @@ public class ButtonRecordMp3 : MonoBehaviour
         if (request.result == UnityWebRequest.Result.Success)
         {
             print(request.downloadHandler.text);
+            StartCoroutine(chatGptCon(request.downloadHandler.text));
         }
         else
         {
@@ -95,4 +113,86 @@ public class ButtonRecordMp3 : MonoBehaviour
         }
     }
 
+    public IEnumerator chatGptCon(string vcInput)
+    {
+        string openAIURL = "https://api.openai.com/v1/chat/completions";
+        string openAIKey = "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";
+        string openAIModel = "gpt-3.5-turbo";
+        float temperature = 0.7f;
+        string message = vcInput;
+        string role = "user";
+
+        // create JSON payload
+        JSONNode json = JSON.Parse("{}");
+        json.Add("model", openAIModel);
+        JSONNode messageJson = JSON.Parse("{}");
+        messageJson.Add("role", role);
+        messageJson.Add("content", message);
+        JSONArray messagesJson = new JSONArray();
+        messagesJson.Add(messageJson);
+        json.Add("messages", messagesJson);
+        json.Add("temperature", temperature);
+
+        // create UnityWebRequest and set headers
+        UnityWebRequest request = UnityWebRequest.Post(openAIURL, UnityWebRequest.kHttpVerbPOST);
+        request.SetRequestHeader("Content-Type", "application/json");
+        request.SetRequestHeader("Authorization", "Bearer " + openAIKey);
+        byte[] bodyRaw = System.Text.Encoding.UTF8.GetBytes(json.ToString());
+        request.uploadHandler = new UploadHandlerRaw(bodyRaw);
+        request.downloadHandler = new DownloadHandlerBuffer();
+
+        // send request and wait for response
+        yield return request.SendWebRequest();
+
+        // check for errors
+        if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            print(request.error);
+            hasEnded = true;
+        }
+        else
+        {
+            // log response
+            JSONNode responseJson = JSON.Parse(request.downloadHandler.text);
+
+            JSONNode choiceJson = responseJson["choices"][0]["message"];
+            string content = choiceJson["content"];
+
+            print(request.downloadHandler.text);
+            print(content);
+
+
+            StartCoroutine(GetTTS(content));
+
+            hasEnded = true;
+        }
+    }
+
+    public IEnumerator GetTTS(string TTSwords)
+    {
+        // Remove the "spaces" in excess
+        Regex rgx = new Regex("\\s+");
+        // Replace the "spaces" with "% 20" for the link Can be interpreted
+        var result = rgx.Replace(TTSwords, "%20");
+        Debug.Log(result);
+        var url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=it&q=" + result;
+        //var request = UnityWebRequest.Post(url);
+        //UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
+        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
+        {
+            yield return www.SendWebRequest();
+            if (www.result == UnityWebRequest.Result.ConnectionError)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                sourceAud.clip = DownloadHandlerAudioClip.GetContent(www);
+                sourceAud.Play();
+            }
+        }
+
+    }
+
 }
+
