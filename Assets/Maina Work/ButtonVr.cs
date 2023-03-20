@@ -52,42 +52,42 @@ public class ButtonVr : MonoBehaviour
 
     public void SpawnSphere()
     {
-        GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+        /*GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         sphere.transform.localPosition = new Vector3(0, 0, 8);
-        sphere.AddComponent<Rigidbody>();
-        //if(toggle == 0)
-        //{
-        //    dictationRecognizer = new DictationRecognizer();
-        //    dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
-        //    dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
-        //    dictationRecognizer.DictationComplete += DictationRecognizer_DictationComplete;
-        //    dictationRecognizer.DictationError += DictationRecognizer_DictationError;
-        //    dictationRecognizer.Start();
-        //    toggle = 1;
-        //}
-        //else
-        //{
-        //    dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
-        //    dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
-        //    dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
-        //    dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
-        //    dictationRecognizer.Stop();
-        //    dictationRecognizer.Dispose();
-        //    updateUi(testo);
-        //    print(testo);
-        //    testo = "";
-        //    toggle = 0;
-        //}
-
+        sphere.AddComponent<Rigidbody>();*/
+        if(toggle == 0)
+        {
+            dictationRecognizer = new DictationRecognizer();
+            dictationRecognizer.DictationResult += DictationRecognizer_DictationResult;
+            dictationRecognizer.DictationHypothesis += DictationRecognizer_DictationHypothesis;
+            dictationRecognizer.DictationComplete += DictationRecognizer_DictationComplete;
+            dictationRecognizer.DictationError += DictationRecognizer_DictationError;
+            dictationRecognizer.Start();
+            toggle = 1;
+        }
+        else
+        {
+            dictationRecognizer.DictationResult -= DictationRecognizer_DictationResult;
+            dictationRecognizer.DictationComplete -= DictationRecognizer_DictationComplete;
+            dictationRecognizer.DictationHypothesis -= DictationRecognizer_DictationHypothesis;
+            dictationRecognizer.DictationError -= DictationRecognizer_DictationError;
+            dictationRecognizer.Stop();
+            dictationRecognizer.Dispose();
+            updateUi(testo);
+            print(testo);
+            testo = "";
+            toggle = 0;
+        }
+        
     }
 
 
     private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
     {
-        
+        /*
          print(text);
-         print(confidence); 
+         print(confidence); */
         testo = testo + text;
     }
 
