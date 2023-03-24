@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 
@@ -14,9 +15,14 @@ public class SC_FPSController : MonoBehaviour
     public float lookSpeed = 2.0f;
     public float lookXLimit = 45.0f;
 
+    //public GameObject window_telo;
+    //public GameObject soffitto_telo;
+
     CharacterController characterController;
     Vector3 moveDirection = Vector3.zero;
     float rotationX = 0;
+    //Animator window_telo_Animator;
+    //Animator soffitto_telo_Animator;
 
     [HideInInspector]
     public bool canMove = true;
@@ -28,6 +34,9 @@ public class SC_FPSController : MonoBehaviour
         // Lock cursor
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
+        //window_telo_Animator = window_telo.GetComponent<Animator>();
+        //soffitto_telo_Animator = soffitto_telo.GetComponent<Animator>();
+
     }
 
     void Update()
@@ -41,6 +50,21 @@ public class SC_FPSController : MonoBehaviour
         float curSpeedY = canMove ? (isRunning ? runningSpeed : walkingSpeed) * Input.GetAxis("Horizontal") : 0;
         float movementDirectionY = moveDirection.y;
         moveDirection = (forward * curSpeedX) + (right * curSpeedY);
+
+        //if (Input.GetKeyDown(KeyCode.B))
+        //{
+        //    Debug.Log("m_Animator.SetTrigger(\"open\");");
+        //    window_telo_Animator.SetTrigger("open");
+        //    soffitto_telo_Animator.SetTrigger("open");
+        //}
+
+        //if (Input.GetKeyDown(KeyCode.V))
+        //{
+        //    Debug.Log("m_Animator.SetTrigger(\"close\");");
+
+        //    window_telo_Animator.SetTrigger("close");
+        //    soffitto_telo_Animator.SetTrigger("close");
+        //}
 
         if (Input.GetButton("Jump") && canMove && characterController.isGrounded)
         {
