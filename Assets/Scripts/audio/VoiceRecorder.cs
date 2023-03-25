@@ -17,12 +17,17 @@ public class VoiceRecorder : MonoBehaviour
     public List <AudioClip> aud;
     public List <float> aud_lenght;
     public int i = 0;
-    public TMP_Text testo;
+    public int clipNumber = 0;
+    [SerializeField] GameObject content;
+    [SerializeField] TMP_Text audioList;
 
     public Stopwatch timer = new();
 
     //A handle to the attached AudioSource    
     private AudioSource goAudioSource;
+
+
+
 
     void Start()
     {
@@ -80,17 +85,17 @@ public class VoiceRecorder : MonoBehaviour
             }
             else //Recording is in progress    
             {
-                testo.text = "Recording in progress...";
                 //Case the 'Stop and Play' button gets pressed    
                 if (Input.GetKeyDown(KeyCode.H))
                 {
                     Microphone.End(null); //Stop the audio recording    
                                           //goAudioSource.Play(); //Playback the recorded audio    
 
-                    testo.text = "Recording ended";
                     timer.Stop();
                     aud_lenght[aud.Count - 1] = (float)timer.Elapsed.TotalSeconds;
                     timer.Reset();
+                    clipNumber++;
+                    addClipInList();
                 }
 
                 //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 50), "Recording in progress...");
@@ -109,7 +114,6 @@ public class VoiceRecorder : MonoBehaviour
 
                 goAudioSource.clip = aud[i];
                 goAudioSource.Play();
-                testo.text = "Playing clip:" +(i+1);
                 StartCoroutine(StopClipAfterSeconds());
                 //Debug.Log("aud[i] = " + aud[i].length);
                 //Debug.Log("print i: " + i);
@@ -128,7 +132,6 @@ public class VoiceRecorder : MonoBehaviour
                 }
                 goAudioSource.clip = aud[i];
                 goAudioSource.Play();
-                testo.text = "Playing clip:" +(i+1);
 
                 StartCoroutine(StopClipAfterSeconds());
 
@@ -137,7 +140,6 @@ public class VoiceRecorder : MonoBehaviour
         else // No microphone    
         {
 
-            testo.text = "Microphone not connected!";
             //Print a red "Microphone not connected!" message at the center of the screen    
             //GUI.contentColor = Color.red;
             //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50), "Microphone not connected!");
@@ -149,7 +151,11 @@ public class VoiceRecorder : MonoBehaviour
         aud.Add(Microphone.Start(null, true, 20, maxFreq));
         yield return null;
     }
-
+    public void addClipInList()
+    {
+        TMP_Text AudioListClone = Instantiate(audioList, content.transform);
+        AudioListClone.text = "Clip: " + clipNumber;
+    }
 
 
 }
