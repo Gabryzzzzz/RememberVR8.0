@@ -32,8 +32,9 @@ public class SC_FPSController : MonoBehaviour
         characterController = GetComponent<CharacterController>();
 
         // Lock cursor
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        //Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.visible = false;
+
         //window_telo_Animator = window_telo.GetComponent<Animator>();
         //soffitto_telo_Animator = soffitto_telo.GetComponent<Animator>();
 
