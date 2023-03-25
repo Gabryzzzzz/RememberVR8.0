@@ -13,6 +13,7 @@ public class ButtonVr : MonoBehaviour
     public int toggle = 0;
     public string testo = "";
     public GameObject button;
+    public OpenCloseWindowsForProjector openCloseScript;
     public UnityEvent onPress;
     public UnityEvent onRelease;
     GameObject presser;
@@ -50,12 +51,19 @@ public class ButtonVr : MonoBehaviour
         VC.text = testo;
     }
 
+    public void openCloseWindowToggle()
+    {
+        openCloseScript.openCloseToggle();
+    }
+
+    public void projectorStart()
+    {
+
+    }
+
     public void SpawnSphere()
     {
-        /*GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-        sphere.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-        sphere.transform.localPosition = new Vector3(0, 0, 8);
-        sphere.AddComponent<Rigidbody>();*/
+        //GameObject sphere = GameObject.CreatePrimitive(PrimitiveType.Sphere);
         if(toggle == 0)
         {
             dictationRecognizer = new DictationRecognizer();
@@ -79,15 +87,15 @@ public class ButtonVr : MonoBehaviour
             testo = "";
             toggle = 0;
         }
-        
+
     }
 
 
     private void DictationRecognizer_DictationResult(string text, ConfidenceLevel confidence)
     {
-        /*
+        
          print(text);
-         print(confidence); */
+         print(confidence); 
         testo = testo + text;
     }
 

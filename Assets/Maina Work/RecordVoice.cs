@@ -1,11 +1,5 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Windows.Speech;
-using System.Collections.Generic;
-using System.Linq;
-using UnityEditor;
-using UnityEngine.UI;
 using UnityEngine.Windows.Speech;
 
 public class RecordVoice : MonoBehaviour
@@ -15,7 +9,7 @@ public class RecordVoice : MonoBehaviour
     Dictionary<string, System.Action> keywords = new Dictionary<string, System.Action>();
     public AudioSource pepperone;
     public DictationRecognizer dictationRecognizer;
-    string testo= "";
+    string testo = "";
 
     // Start is called before the first frame update
     void Start()
@@ -60,8 +54,8 @@ public class RecordVoice : MonoBehaviour
 
     private void DictationRecognizer_DictationHypothesis(string text)
     {
-       // print("RISUTLATO:");
-      //  print(text);
+        // print("RISUTLATO:");
+        //  print(text);
     }
 
     private void DictationRecognizer_DictationComplete(DictationCompletionCause cause)
