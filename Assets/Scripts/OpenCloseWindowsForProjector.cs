@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class OpenCloseWindowsForProjector : MonoBehaviour
@@ -22,53 +20,71 @@ public class OpenCloseWindowsForProjector : MonoBehaviour
         window_state.text = "Window is closed";
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private IEnumerator TrackAnimationDuration()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        animation_running = true;
+        yield return new WaitForSeconds(4);
+        animation_running = false;
+    }
+
+    private void OpenAll()
+    {
+        if (!window_telo_Animator.GetCurrentAnimatorStateInfo(0).IsName("close_window"))
         {
             window_state.text = "Window is open";
             Debug.Log("m_Animator.SetTrigger(\"open\");");
             window_telo_Animator.SetTrigger("open");
             soffitto_telo_Animator.SetTrigger("open");
+            StartCoroutine(nameof(TrackAnimationDuration));
         }
+    }
 
-        if (Input.GetKeyDown(KeyCode.V))
+    private void CloseAll()
+    {
+        if (!window_telo_Animator.GetCurrentAnimatorStateInfo(0).IsName("open_window"))
         {
             window_state.text = "Window is closed";
             Debug.Log("m_Animator.SetTrigger(\"close\");");
             window_telo_Animator.SetTrigger("close");
             soffitto_telo_Animator.SetTrigger("close");
+            StartCoroutine(nameof(TrackAnimationDuration));
+        }
+    }
+
+    private bool animation_running = false;
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.B) && !animation_running)
+        {
+            OpenAll();
+        }
+
+        if (Input.GetKeyDown(KeyCode.V) && !animation_running)
+        {
+            CloseAll();
         }
     }
 
     public void openCloseToggle()
     {
-        if(isOpen == true)
+        if (!animation_running)
         {
-            isOpen = false;
-            closeWindow();
+            if (isOpen == true)
+            {
+                isOpen = false;
+                OpenAll();
+            }
+            else
+            {
+                isOpen = true;
+                CloseAll();
+            }
         }
-        else
-        {
-            isOpen = true;
-            openWindow();
-        }
+
     }
 
-    public void closeWindow()
-    {
-        window_state.text = "Window is closed";
-        Debug.Log("m_Animator.SetTrigger(\"close\");");
-        window_telo_Animator.SetTrigger("close");
-        soffitto_telo_Animator.SetTrigger("close");
-    }
 
-    public void openWindow()
-    {
-        window_state.text = "Window is open";
-        Debug.Log("m_Animator.SetTrigger(\"open\");");
-        window_telo_Animator.SetTrigger("open");
-        soffitto_telo_Animator.SetTrigger("open");
-    }
 }

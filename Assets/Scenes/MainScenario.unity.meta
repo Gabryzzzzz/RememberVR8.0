@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scenes/MainScenario.unity.meta
 guid: 80d9d84e609c92041a6ace58a7845d1d
+========
+guid: f7797c5614d067545bf2750bc5380f7b
+timeCreated: 1459820063
+licenseType: Store
+>>>>>>>> Stashed changes:Assets/SimpleOfficeInteriors/_Demo/_Demo.unity.meta
 DefaultImporter:
-  externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
