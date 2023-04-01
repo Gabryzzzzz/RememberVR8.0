@@ -176,7 +176,7 @@ public class ButtonRecordMp3 : MonoBehaviour
         using (UnityWebRequest www = UnityWebRequest.Post("https://localhost:7054/TTS/Create", UnityWebRequest.kHttpVerbPOST))
         {
             www.uploadHandler = new UploadHandlerRaw(jsonBytes);
-            www.downloadHandler = new DownloadHandlerAudioClip();
+          //  www.downloadHandler = new DownloadHandlerAudioClip();
             www.SetRequestHeader("Content-Type", "application/json");
             www.SetRequestHeader("Accept", "text/plain");
 
