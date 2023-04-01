@@ -38,6 +38,5 @@ public class TextClip : MonoBehaviour
         yield return new WaitForSeconds(parentScript.aud_lenght[parentScript.i]);
         parentScript.goAudioSource.Stop();
         ChangeTextColor(Color.black);
-
     }
 }
