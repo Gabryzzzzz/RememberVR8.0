@@ -23,6 +23,8 @@ public class TextFollowPlayer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //player = GameObject.Find("Complete XR Origin  Set Up");
+
         if (GameObject.Find("FPS Player").active)
         {
             player = GameObject.Find("FPS Player");
