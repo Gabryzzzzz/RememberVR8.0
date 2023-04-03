@@ -7,7 +7,11 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+<<<<<<<< HEAD:Assets/Materials/Tests/Lights/light_material_red.mat
   m_Name: light_material_red
+========
+  m_Name: New Material
+>>>>>>>> 7e63c38be80e0cfe4fbc04054e0ceca0a0856019:Assets/VR Things/New Material.mat
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ValidKeywords:
   - _EMISSION
