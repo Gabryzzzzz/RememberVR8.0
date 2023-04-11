@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
     
 [RequireComponent(typeof(AudioSource))]
@@ -19,13 +20,13 @@ public class VoiceRecorder : MonoBehaviour
     public int i = 0;
     public int clipNumber = 0;
     [SerializeField] GameObject content;
-    [SerializeField] TMP_Text audioList;
+    [SerializeField] Button audioList;
+    [SerializeField] TMP_Text textMessage;
 
     public Stopwatch timer = new();
 
     //A handle to the attached AudioSource    
-    private AudioSource goAudioSource;
-
+    public AudioSource goAudioSource;
 
 
 
@@ -58,12 +59,6 @@ public class VoiceRecorder : MonoBehaviour
         }
     }
 
-    private IEnumerator StopClipAfterSeconds() {
-        yield return new WaitForSeconds(aud_lenght[i]);
-        goAudioSource.Stop();
-        //testo.text = "";
-    }
-
     void Update()
     {
         //If there is a microphone    
@@ -72,15 +67,13 @@ public class VoiceRecorder : MonoBehaviour
             //If the audio from any microphone isn't being captured    
             if (!Microphone.IsRecording(null))
             {
+                textMessage.color = Color.white;
+                textMessage.text = "Try to record a new audio ";
                 //Case the 'Record' button gets pressed    
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     //Start recording and store the audio captured from the microphone at the AudioClip in the AudioSource    
-                    //goAudioSource.clip = Microphone.Start(null, true, 20, maxFreq);
-
-                    StartCoroutine(StartRecording());
-                    aud_lenght.Add(0);
-                    timer.Start();
+                    recordAudio();
                 }
             }
             else //Recording is in progress    
@@ -88,74 +81,44 @@ public class VoiceRecorder : MonoBehaviour
                 //Case the 'Stop and Play' button gets pressed    
                 if (Input.GetKeyDown(KeyCode.H))
                 {
-                    Microphone.End(null); //Stop the audio recording    
-                                          //goAudioSource.Play(); //Playback the recorded audio    
-
-                    timer.Stop();
-                    aud_lenght[aud.Count - 1] = (float)timer.Elapsed.TotalSeconds;
-                    timer.Reset();
-                    clipNumber++;
-                    addClipInList();
+                    stopAudio();
                 }
-
-                //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 + 25, 200, 50), "Recording in progress...");
-            }
-
-            if (Input.GetKeyDown(KeyCode.X) && aud.Count > 0 && !goAudioSource.isPlaying)
-            {
-                if (i == aud.Count - 1)
-                {
-                    i = 0;
-                }
-                else
-                {
-                    i++;
-                }
-
-                goAudioSource.clip = aud[i];
-                goAudioSource.Play();
-                StartCoroutine(StopClipAfterSeconds());
-                //Debug.Log("aud[i] = " + aud[i].length);
-                //Debug.Log("print i: " + i);
-                //Debug.Log("aud.Count: " + aud.Count);
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z) && aud.Count > 0 && !goAudioSource.isPlaying)
-            {
-                if (i == 0)
-                {
-                    i = aud.Count - 1;
-                }
-                else
-                {
-                    i--;
-                }
-                goAudioSource.clip = aud[i];
-                goAudioSource.Play();
-
-                StartCoroutine(StopClipAfterSeconds());
-
             }
         }
         else // No microphone    
         {
-
-            //Print a red "Microphone not connected!" message at the center of the screen    
-            //GUI.contentColor = Color.red;
-            //GUI.Label(new Rect(Screen.width / 2 - 100, Screen.height / 2 - 25, 200, 50), "Microphone not connected!");
+            textMessage.color = Color.red;
+            textMessage.text = "Microphone not connected!";
+            //Print a red "Microphone not connected!" message at the center of the screen
         }
 
     }
 
-    private IEnumerator StartRecording() {
+    private void StartRecording() {
         aud.Add(Microphone.Start(null, true, 20, maxFreq));
-        yield return null;
     }
     public void addClipInList()
     {
-        TMP_Text AudioListClone = Instantiate(audioList, content.transform);
-        AudioListClone.text = "Clip: " + clipNumber;
+        Button AudioListClone = Instantiate(audioList, content.transform);
+        AudioListClone.GetComponentInChildren<TMP_Text>().text = "Clip: " + clipNumber;
     }
 
+    public void recordAudio()
+    {
+        textMessage.text = "";
+        StartRecording();
+        aud_lenght.Add(0);
+        timer.Start();
+    }
+    public void stopAudio()
+    {
+        Microphone.End(null); //Stop the audio recording    
+                              //goAudioSource.Play(); //Playback the recorded audio    
 
+        timer.Stop();
+        aud_lenght[aud.Count - 1] = (float)timer.Elapsed.TotalSeconds;
+        timer.Reset();
+        clipNumber++;
+        addClipInList();
+    }
 }
