@@ -1,24 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Provagrabbed : MonoBehaviour
+public class GrabRecordClip : MonoBehaviour
 {
-    [SerializeField] VoiceRecorder voiceRecorder;
     // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    public  void isGrabbed()
+    [SerializeField] VoiceRecorder voiceRecorder;
+    public void isGrabbed()
     {
         Debug.Log("Microfono Grabbato");
         voiceRecorder.recordAudio();

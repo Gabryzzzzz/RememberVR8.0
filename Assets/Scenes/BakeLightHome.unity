@@ -4098,24 +4098,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 41.49, y: 40, z: 0}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!1 &1005419125 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2661238515630762488, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
-  m_PrefabInstance: {fileID: 1225240058}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1005419131
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1005419125}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce63693fba4f1d42aee0447c2bf9c86, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  voiceRecorder: {fileID: 0}
 --- !u!1 &1008031916
 GameObject:
   m_ObjectHideFlags: 0
@@ -5221,11 +5203,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -20.06
+      value: -24.32
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.7071068
+      value: -0.70403975
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalRotation.x
@@ -5233,7 +5215,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.7071068
+      value: 0.71016055
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalRotation.z
@@ -5241,23 +5223,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -11.6
+      value: -9.02
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 13.904999
+      value: 12.76
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 90
+      value: -90.496
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: -90
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 43530530466804020, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5353,8 +5335,8 @@ MonoBehaviour:
   m_SelectEntered:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020001945}
-        m_TargetAssemblyTypeName: Provagrabbed, Assembly-CSharp
+      - m_Target: {fileID: 2020001940}
+        m_TargetAssemblyTypeName: GrabRecordClip, Assembly-CSharp
         m_MethodName: isGrabbed
         m_Mode: 1
         m_Arguments:
@@ -5368,8 +5350,8 @@ MonoBehaviour:
   m_SelectExited:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2020001945}
-        m_TargetAssemblyTypeName: Provagrabbed, Assembly-CSharp
+      - m_Target: {fileID: 2020001940}
+        m_TargetAssemblyTypeName: GrabRecordClip, Assembly-CSharp
         m_MethodName: isNotGrabbed
         m_Mode: 1
         m_Arguments:
@@ -6483,7 +6465,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 2661238517417617671, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
   m_PrefabInstance: {fileID: 1225240058}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &2020001945
+--- !u!114 &2020001940
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -6492,7 +6474,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 2020001939}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9ce63693fba4f1d42aee0447c2bf9c86, type: 3}
+  m_Script: {fileID: 11500000, guid: bae70ba93d0c57f43995aaa638b914cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   voiceRecorder: {fileID: 1058638188}
