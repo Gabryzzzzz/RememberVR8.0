@@ -5228,7 +5228,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -18.596
+      value: -18.584
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_LocalRotation.w
@@ -5248,7 +5248,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -10.819
+      value: -10.817
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341307, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -5316,7 +5316,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9ce63693fba4f1d42aee0447c2bf9c86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  voiceRecorder: {fileID: 0}
 --- !u!114 &1497706907
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6521,7 +6520,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9167389158563986449, guid: 7c0a2088e24e9b3428c5664cb7f1cd4d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 11.908
+      value: 11.763
       objectReference: {fileID: 0}
     - target: {fileID: 9167389158563986449, guid: 7c0a2088e24e9b3428c5664cb7f1cd4d, type: 3}
       propertyPath: m_LocalPosition.z
