@@ -4697,7 +4697,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5216948608242368717, guid: b1b7af877f09cdb4c8a5f7969bc90e9e, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5216948608284975638, guid: b1b7af877f09cdb4c8a5f7969bc90e9e, type: 3}
       propertyPath: m_Enabled
@@ -4756,6 +4756,10 @@ PrefabInstance:
     - target: {fileID: 4362029811160026909, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
       propertyPath: m_Name
       value: Complete XR Origin Set Up
+      objectReference: {fileID: 0}
+    - target: {fileID: 4362029811160026909, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4918951028518411102, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
       propertyPath: m_Enabled
@@ -4908,11 +4912,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 445086, guid: b462b22e3ad0ed6458b885ab94aefcec, type: 3}
   m_PrefabInstance: {fileID: 1261443010}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1275242290 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4362029811160026909, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
-  m_PrefabInstance: {fileID: 1225240058}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1285205457 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 161280, guid: 367f751fcc2af754a97160e3534db434, type: 3}
@@ -4931,7 +4930,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   agent: {fileID: 1001709865}
-  player: {fileID: 1275242290}
+  player: {fileID: 1304881722}
   waypoints:
   - {fileID: 224239775}
   - {fileID: 94223225}
@@ -4984,6 +4983,13 @@ MonoBehaviour:
   z_offset: 0
   bubble_size: 1
   trigger_distance: 3
+  player: {fileID: 0}
+  destroy_time: 3
+--- !u!1 &1304881722 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2661238517322516870, guid: 0cf0c6a594d6f654d88111bd8eaba383, type: 3}
+  m_PrefabInstance: {fileID: 1225240058}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1361924069 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 122364, guid: 8b3785fa97e5a394c949aa49211757f0, type: 3}
@@ -5165,6 +5171,10 @@ PrefabInstance:
     - target: {fileID: 43530529750273750, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -0.00076183607
+      objectReference: {fileID: 0}
+    - target: {fileID: 43530530347341285, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 43530530347341287, guid: e8565353f95f6544fb7934303a47d8ed, type: 3}
       propertyPath: m_Name
@@ -5494,6 +5504,26 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1497706911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1497706904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 142284ad1f3b769439ea8174e8fa6cf3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  text_to_display: Microfono
+  y_offset: 0.9
+  x_offset: 0
+  z_offset: 0
+  bubble_size: 1
+  trigger_distance: 4
+  player: {fileID: 1844429221}
+  destroy_time: 3
 --- !u!1 &1555346626 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -2760045945884169134, guid: 1aaa512ffa44a70479f59f2915bb1dd7, type: 3}

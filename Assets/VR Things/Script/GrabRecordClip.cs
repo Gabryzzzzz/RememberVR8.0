@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GrabRecordClip : MonoBehaviour
@@ -9,11 +8,23 @@ public class GrabRecordClip : MonoBehaviour
     public void isGrabbed()
     {
         Debug.Log("Microfono Grabbato");
-        voiceRecorder.recordAudio();
+        StartCoroutine("startClip");
     }
     public void isNotGrabbed()
     {
         Debug.Log("Microfono non Grabbato");
+        StartCoroutine("stopClip");
+    }
+
+    public IEnumerator startClip()
+    {
+        voiceRecorder.recordAudio();
+        yield return null;
+    }
+
+    public IEnumerator stopClip()
+    {
         voiceRecorder.stopAudio();
+        yield return null;
     }
 }
