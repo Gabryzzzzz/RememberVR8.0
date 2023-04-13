@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Samples.meta
 guid: 4dac7ac8002a2df4da9482a21f1d89af
 folderAsset: yes
 DefaultImporter:
+========
+guid: 750c1bcc400de5b449fcaa9b6e1ce9fd
+PrefabImporter:
+>>>>>>>> tinda:Assets/Prefab/UI/ButtonClip.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

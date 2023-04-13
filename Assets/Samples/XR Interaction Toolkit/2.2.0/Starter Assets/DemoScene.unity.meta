@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Samples/XR Interaction Toolkit/2.2.0/Starter Assets/DemoScene.unity.meta
 guid: 792e1ef1cbfaf0444b9477c7a807be75
 DefaultImporter:
+========
+guid: e8565353f95f6544fb7934303a47d8ed
+PrefabImporter:
+>>>>>>>> tinda:Assets/Prefab/UI/Audio UI.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

@@ -73,7 +73,12 @@ public class VoiceRecorder : MonoBehaviour
                 if (Input.GetKeyDown(KeyCode.G))
                 {
                     //Start recording and store the audio captured from the microphone at the AudioClip in the AudioSource    
-                    recordAudio();
+                    //goAudioSource.clip = Microphone.Start(null, true, 20, maxFreq);
+                    textMessage.text = "";
+                    //StartCoroutine(StartRecording());
+                    StartRecording();
+                    aud_lenght.Add(0);
+                    timer.Start();
                 }
             }
             else //Recording is in progress    
@@ -81,7 +86,14 @@ public class VoiceRecorder : MonoBehaviour
                 //Case the 'Stop and Play' button gets pressed    
                 if (Input.GetKeyDown(KeyCode.H))
                 {
-                    stopAudio();
+                    Microphone.End(null); //Stop the audio recording    
+                                          //goAudioSource.Play(); //Playback the recorded audio    
+
+                    timer.Stop();
+                    aud_lenght[aud.Count - 1] = (float)timer.Elapsed.TotalSeconds;
+                    timer.Reset();
+                    clipNumber++;
+                    addClipInList();
                 }
             }
         }
@@ -103,22 +115,5 @@ public class VoiceRecorder : MonoBehaviour
         AudioListClone.GetComponentInChildren<TMP_Text>().text = "Clip: " + clipNumber;
     }
 
-    public void recordAudio()
-    {
-        textMessage.text = "";
-        StartRecording();
-        aud_lenght.Add(0);
-        timer.Start();
-    }
-    public void stopAudio()
-    {
-        Microphone.End(null); //Stop the audio recording    
-                              //goAudioSource.Play(); //Playback the recorded audio    
 
-        timer.Stop();
-        aud_lenght[aud.Count - 1] = (float)timer.Elapsed.TotalSeconds;
-        timer.Reset();
-        clipNumber++;
-        addClipInList();
-    }
 }
