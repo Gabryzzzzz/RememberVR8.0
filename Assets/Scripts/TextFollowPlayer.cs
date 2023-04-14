@@ -17,7 +17,7 @@ public class TextFollowPlayer : MonoBehaviour
     //Questa roba funziona ma è da sistemare, è poco elegante
     //-------------------------------------------------------
 
-    public GameObject player;
+    private GameObject player;
     private GameObject text_helper;
 
     // Start is called before the first frame update
@@ -29,8 +29,8 @@ public class TextFollowPlayer : MonoBehaviour
         //}
         //else
         //{
-        //    player = GameObject.Find("Complete XR Origin Set Up");
         //}
+        player = GameObject.Find("XR Origin");
 
     }
 

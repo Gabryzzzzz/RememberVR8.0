@@ -15,6 +15,6 @@ public class FixAltezza : MonoBehaviour
     void Update()
     {
         //translate player y
-        player.transform.position = new Vector3(player.transform.position.x, 10f, player.transform.position.z);
+        player.transform.position = new Vector3(player.transform.position.x, 11f, player.transform.position.z);
     }
 }

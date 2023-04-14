@@ -19,14 +19,6 @@ public class BotMovement : MonoBehaviour
     // Start is called before the first frame update
     private void Awake()
     {
-        if (GameObject.Find("FPS Player").active)
-        {
-            player = GameObject.Find("FPS Player");
-        }
-        else
-        {
-            player = GameObject.Find("Complete XR Origin Set Up");
-        }
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(waypoints[current_waypoint].transform.position);
         current_waypoint++;
