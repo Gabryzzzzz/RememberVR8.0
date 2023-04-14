@@ -7,20 +7,24 @@ public class BotMovement : MonoBehaviour
 {
 
     public NavMeshAgent agent;
-    public Transform player;
+    public GameObject player;
     public List<GameObject> waypoints = new();
     int current_waypoint = 0;
     Animator bot_animator;
+
+    public float chase_distance = 6f;
+    public float stop_distance = 4f;
 
 
     // Start is called before the first frame update
     private void Awake()
     {
-        player = GameObject.Find("FPS Player").transform;
         agent = GetComponent<NavMeshAgent>();
         agent.SetDestination(waypoints[current_waypoint].transform.position);
         current_waypoint++;
         bot_animator = transform.GetComponent<Animator>();
+
+        StartCoroutine(nameof(log_every_5_seconds));
     }
 
     bool just_interacted = false;
@@ -37,24 +41,53 @@ public class BotMovement : MonoBehaviour
         bot_animator.SetFloat("Speed_f", 0f);
     }
 
+    private int log_count = 0;
+    //log every 5 secons
+    private IEnumerator log_every_5_seconds()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(2);
+            Debug.Log("near_player " + log_count + " " + near_player);
+            Debug.Log("very_near " + log_count + " " + very_near);
+            Debug.Log("i_can_feel_it " + log_count + " " + i_can_feel_it);
+            log_count++;
+        }
+    }
+
+
+    private bool near_player;
+    private bool very_near;
+    private bool i_can_feel_it;
+    private bool far_from_player;
     // Update is called once per frame
     void Update()
     {
-        float player_distance = Vector3.Distance(transform.position, player.position);
-        if (player_distance < 5f && player_distance > 3f)
+
+        near_player = UtilsGabryzzzzz.two_object_near(transform, player.transform, chase_distance);
+        far_from_player = !UtilsGabryzzzzz.two_object_near(transform, player.transform, chase_distance + 2f);
+        if (near_player)
         {
-            just_interacted = true;
-            //Debug.Log("Chase player");
-            ChasePlayer();
-            StartBotAnimation();
+
+            i_can_feel_it = UtilsGabryzzzzz.two_object_near(transform, player.transform, stop_distance);
+            very_near = UtilsGabryzzzzz.two_object_near(transform, player.transform, chase_distance - 1f);
+
+            if (i_can_feel_it && very_near)
+            {
+                just_interacted = true;
+                stop_move();
+                StopBotAnimation();
+            }
+            else if (!very_near && !i_can_feel_it)
+            {
+                just_interacted = true;
+                //Debug.Log("Chase player");
+                ChasePlayer();
+                StartBotAnimation();
+            }
+            UtilsGabryzzzzz.good_look_at(transform, player, 3f);
         }
-        else if (player_distance < 3f)
-        {
-            just_interacted = true;
-            stop_move();
-            StopBotAnimation();
-        }
-        else
+        else if (far_from_player)
         {
             if (just_interacted == true)
             {
@@ -75,7 +108,7 @@ public class BotMovement : MonoBehaviour
 
     private IEnumerator pause_before_patrol()
     {
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
         just_interacted = false;
     }
 
@@ -97,21 +130,14 @@ public class BotMovement : MonoBehaviour
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position + player.forward * 1.5f);
+        agent.SetDestination(player.transform.position + player.transform.forward * 1.5f);
+        UtilsGabryzzzzz.good_look_at(transform, player, 3f);
     }
 
     private void stop_move()
     {
         agent.SetDestination(transform.position);
-        good_look_at();
-    }
-
-    private void good_look_at()
-    {
-        var lookPos = player.transform.position - transform.position;
-        lookPos.y = 0;
-        var rotation = Quaternion.LookRotation(lookPos);
-        transform.rotation = Quaternion.Slerp(transform.rotation, rotation, Time.deltaTime * 2f);
+        UtilsGabryzzzzz.good_look_at(transform, player, 3f);
     }
 
 }

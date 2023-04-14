@@ -1,5 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< Updated upstream:Assets/Scenes/BakeLightHome.unity.meta
 guid: f92b40dd14de63146843996136a50236
+========
+guid: f9280889fb1ef7c40a7e6d6636a6a0f2
+folderAsset: yes
+>>>>>>>> Stashed changes:Assets/SimpleOfficeInteriors.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
