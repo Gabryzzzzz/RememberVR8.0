@@ -9,6 +9,14 @@ public class CollisionRegisterStop : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
+        Debug.Log("Microfono non Grabbato");
+        StartCoroutine("stopClip");
+    }
+   
+
+    public IEnumerator stopClip()
+    {
         voiceRecorder.stopAudio();
+        yield return null;
     }
 }

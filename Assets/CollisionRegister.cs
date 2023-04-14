@@ -8,6 +8,15 @@ public class CollisionRegister : MonoBehaviour
     // Start is called before the first frame update
     private void OnTriggerEnter(Collider other)
     {
+        Debug.Log("Microfono Grabbato");
+        StartCoroutine("startClip");
+    }
+   
+
+
+    public IEnumerator startClip()
+    {
         voiceRecorder.recordAudio();
+        yield return null;
     }
 }
