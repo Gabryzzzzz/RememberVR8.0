@@ -38,7 +38,7 @@ public static class SavWav {
 			filename += ".wav";
 		}
 
-		var filepath = Path.Combine("C:\\Users\\andre\\Desktop\\asset", filename);
+		var filepath = Path.Combine("C:\\Users\\andrea.mainardi\\Desktop\\AudioUnity", filename);
 
 		Debug.Log(filepath);
 
