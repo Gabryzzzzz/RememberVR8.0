@@ -92,13 +92,9 @@ public class ButtonRecordMp3 : MonoBehaviour
         hasEnded = false;
         print("Iniziato afterRecord");
 
-<<<<<<< Updated upstream
-        var token = "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"; // sostituisci con il tuo token
-        var filePath = "C:\\Users\\andre\\Desktop\\asset\\VoiceMp3.wav"; // sostituisci con il percorso del tuo file
-=======
+
         var token = "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"; // sostituisci con il tuo token
         var filePath = "C:\\Users\\andrea.mainardi\\Desktop\\AudioUnity\\VoiceMp3.wav"; // sostituisci con il percorso del tuo file
->>>>>>> Stashed changes
         var model = "whisper-1";
         var url = "https://api.openai.com/v1/audio/transcriptions";
         print("Settati parametri");
@@ -127,11 +123,8 @@ public class ButtonRecordMp3 : MonoBehaviour
     public IEnumerator chatGptCon(string vcInput)
     {
         string openAIURL = "https://api.openai.com/v1/chat/completions";
-<<<<<<< Updated upstream
-        string openAIKey = "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";
-=======
+
         string openAIKey = "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";
->>>>>>> Stashed changes
         string openAIModel = "gpt-3.5-turbo";
         float temperature = 0.7f;
         string message = vcInput;
@@ -185,18 +178,7 @@ public class ButtonRecordMp3 : MonoBehaviour
 
     public IEnumerator GetTTS(string TTSwords)
     {
-<<<<<<< Updated upstream
-        // Remove the "spaces" in excess
-        Regex rgx = new Regex("\\s+");
-        // Replace the "spaces" with "% 20" for the link Can be interpreted
-        var result = rgx.Replace(TTSwords, "%20");
-        Debug.Log(result);
-        var url = "https://translate.google.com/translate_tts?ie=UTF-8&client=tw-ob&tl=it&q=" + result;
-        //var request = UnityWebRequest.Post(url);
-        //UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
-        using (UnityWebRequest www = UnityWebRequestMultimedia.GetAudioClip(url, AudioType.MPEG))
-        {
-=======
+
         var json = "{\"text\":\" " + TTSwords + "\"}";
         var jsonBytes = System.Text.Encoding.UTF8.GetBytes(json);
 
@@ -207,7 +189,6 @@ public class ButtonRecordMp3 : MonoBehaviour
             www.SetRequestHeader("Content-Type", "application/json");
             www.SetRequestHeader("Accept", "text/plain");
 
->>>>>>> Stashed changes
             yield return www.SendWebRequest();
             if (www.result == UnityWebRequest.Result.ConnectionError)
             {
@@ -215,13 +196,7 @@ public class ButtonRecordMp3 : MonoBehaviour
             }
             else
             {
-<<<<<<< Updated upstream
-                sourceAud.clip = DownloadHandlerAudioClip.GetContent(www);
-                sourceAud.Play();
-            }
-        }
 
-=======
                 var contenuto = www.downloadHandler;
 
 
@@ -244,7 +219,6 @@ public class ButtonRecordMp3 : MonoBehaviour
                 //Debug.Log(www.downloadHandler.text);
             }
         }
->>>>>>> Stashed changes
     }
 
    
