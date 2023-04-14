@@ -30,7 +30,7 @@ public class TextFollowPlayer : MonoBehaviour
         //else
         //{
         //}
-        player = GameObject.Find("XR Origin");
+        player = GameObject.Find("FPS Player");
 
     }
 
@@ -53,7 +53,7 @@ public class TextFollowPlayer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UtilsGabryzzzzz.two_object_near(transform, player.transform, trigger_distance))
+        if (UtilsGabryzzzzz.two_object_near(transform, player.transform, trigger_distance) && player != null)
         {
             //Debug.Log("Player near to " + transform.name);
             //Intanciate a prefab from assets

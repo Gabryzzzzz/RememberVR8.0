@@ -1,16 +1,10 @@
+using SimpleJSON;
+using System;
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Windows.Speech;
-using UnityEditor;
-using UnityEngine.UI;
 using UnityEngine.Networking;
-using System.IO;
-using System.Threading.Tasks;
-using SimpleJSON;
-using System.Text.RegularExpressions;
-using System;
 
 
 public class ButtonRecordMp3 : MonoBehaviour
@@ -24,9 +18,12 @@ public class ButtonRecordMp3 : MonoBehaviour
     GameObject presser;
     [SerializeField] bool isPressed;
     public int layer;
-    public bool toggleRec=false;
+    public bool toggleRec = false;
     public bool startedRec = false;
     public bool hasEnded = true;
+
+    private readonly string token = "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";
+
     void Start()
     {
         isPressed = false;
@@ -63,7 +60,7 @@ public class ButtonRecordMp3 : MonoBehaviour
 
     public IEnumerator RecordingWavToggle()
     {
-        if(hasEnded == true)
+        if (hasEnded == true)
         {
             if (toggleRec == false)
             {
@@ -73,7 +70,7 @@ public class ButtonRecordMp3 : MonoBehaviour
                 myAudioClip = Microphone.Start(null, false, 10, 44100);
                 toggleRec = true;
             }
-            else if (startedRec = true)
+            else if (startedRec == true)
             {
                 print("Fineclip -- crea Wav");
                 UnityEngine.Microphone.End(null);
@@ -93,8 +90,7 @@ public class ButtonRecordMp3 : MonoBehaviour
         print("Iniziato afterRecord");
 
 
-        var token = "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"; // sostituisci con il tuo token
-        var filePath = "C:\\Users\\andrea.mainardi\\Desktop\\AudioUnity\\VoiceMp3.wav"; // sostituisci con il percorso del tuo file
+        var filePath = "C:\\Users\\gabri\\Desktop\\AudioUnity\\VoiceMp3.wav"; // sostituisci con il percorso del tuo file
         var model = "whisper-1";
         var url = "https://api.openai.com/v1/audio/transcriptions";
         print("Settati parametri");
@@ -124,7 +120,7 @@ public class ButtonRecordMp3 : MonoBehaviour
     {
         string openAIURL = "https://api.openai.com/v1/chat/completions";
 
-        string openAIKey = "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";
+        string openAIKey = token;
         string openAIModel = "gpt-3.5-turbo";
         float temperature = 0.7f;
         string message = vcInput;
@@ -176,13 +172,14 @@ public class ButtonRecordMp3 : MonoBehaviour
         }
     }
 
+    public GameObject audio_source;
+
     public IEnumerator GetTTS(string TTSwords)
     {
-
         var json = "{\"text\":\" " + TTSwords + "\"}";
         var jsonBytes = System.Text.Encoding.UTF8.GetBytes(json);
 
-        using (UnityWebRequest www = UnityWebRequest.Post("https://localhost:7054/TTS/Create", UnityWebRequest.kHttpVerbPOST))
+        using (UnityWebRequest www = UnityWebRequest.Post("http://localhost:5088/TTS/Create", UnityWebRequest.kHttpVerbPOST))
         {
             www.uploadHandler = new UploadHandlerRaw(jsonBytes);
             www.downloadHandler = new DownloadHandlerBuffer();
@@ -199,19 +196,33 @@ public class ButtonRecordMp3 : MonoBehaviour
 
                 var contenuto = www.downloadHandler;
 
-
-
                 var audioBytes = Convert.FromBase64String(www.downloadHandler.text);
-                var tempPath = "C:\\Users\\andrea.mainardi\\Desktop\\Asset\\" + "tmpMP3Base64.wav";
+                var tempPath = "C:\\Users\\gabri\\Desktop\\Asset\\" + "tmpMP3Base64.wav";
                 File.WriteAllBytes(tempPath, audioBytes);
                 //sourceAud.clip = tempPath;
                 //sourceAud.Play();
-                yield return new WaitForSeconds(4);
-                string audioToLoad = string.Format("C:\\Users\\andrea.mainardi\\Desktop\\Asset\\" + "{0}", "tmpMP3Base64.wav");
+                Debug.Log("MAO");
+                Debug.Log("DIOCANEBASTARDOSTRONZOMANNAGGIAPUTTANA");
+                string audioToLoad = string.Format("C:\\Users\\gabri\\Desktop\\Asset\\" + "{0}", "tmpMP3Base64.wav");
+                yield return new WaitForSeconds(1);
+
                 using (WWW request = new WWW(audioToLoad))
                 {
-                    sourceAud.clip = request.GetAudioClip();
-                    sourceAud.Play();
+                    var gameobject_audio = Instantiate(audio_source, new Vector3(0, 0, 0), Quaternion.identity);
+
+                    Debug.Log("MAOZEDONG");
+
+                    gameobject_audio.name = "ODAIOUHDWIOAUI)AWDHJd oiwaghidohowaDIHAWODHIOawd";
+                    AudioClip clip = request.GetAudioClip();
+                    gameobject_audio.GetComponent<AudioSource>().clip = clip;
+                    gameobject_audio.GetComponent<AudioSource>().Play();
+
+                    yield return new WaitForSeconds(clip.length);
+
+                    Destroy(gameobject_audio);
+                    Debug.Log("MAOZEDONG 2");
+
+
                 }
                 //audioClip = request.GetAudioClip();
                 //Debug.log(contenuto);
@@ -221,29 +232,29 @@ public class ButtonRecordMp3 : MonoBehaviour
         }
     }
 
-   
-        /*    string audioToLoad = string.Format("C:\\Users\\andrea.mainardi\\Desktop\\Asset\\" + "{0}", "tmpMP3Base64.wav");
-            WWW request = new WWW(audioToLoad);
-            //audioClip = request.GetAudioClip();
-            sourceAud.clip = request.GetAudioClip();
+
+    /*    string audioToLoad = string.Format("C:\\Users\\andrea.mainardi\\Desktop\\Asset\\" + "{0}", "tmpMP3Base64.wav");
+        WWW request = new WWW(audioToLoad);
+        //audioClip = request.GetAudioClip();
+        sourceAud.clip = request.GetAudioClip();
+        sourceAud.Play();
+    yield return null; */
+
+    //audioClip.name = name;
+    //clips.Add(audioClip);
+    //return request;
+
+    /* UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip("C:\\Users\\andrea.mainardi\\Desktop\\Asset\\tmpMP3Base64.mp3", AudioType.MPEG);
+        yield return request.SendWebRequest();
+        if (request.result.Equals(UnityWebRequest.Result.ConnectionError))
+            Debug.LogError(request.error);
+        else
+        {
+            sourceAud.clip = DownloadHandlerAudioClip.GetContent(request);
             sourceAud.Play();
-        yield return null; */
+        } */
+    //File.Delete(tempPath); */
 
-        //audioClip.name = name;
-        //clips.Add(audioClip);
-        //return request;
-
-        /* UnityWebRequest request = UnityWebRequestMultimedia.GetAudioClip("C:\\Users\\andrea.mainardi\\Desktop\\Asset\\tmpMP3Base64.mp3", AudioType.MPEG);
-            yield return request.SendWebRequest();
-            if (request.result.Equals(UnityWebRequest.Result.ConnectionError))
-                Debug.LogError(request.error);
-            else
-            {
-                sourceAud.clip = DownloadHandlerAudioClip.GetContent(request);
-                sourceAud.Play();
-            } */
-        //File.Delete(tempPath); */
-   
 
 
     // Remove the "spaces" in excess

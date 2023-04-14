@@ -24,7 +24,7 @@ public class BotMovement : MonoBehaviour
         current_waypoint++;
         bot_animator = transform.GetComponent<Animator>();
 
-        StartCoroutine(nameof(log_every_5_seconds));
+        //StartCoroutine(nameof(log_every_5_seconds));
     }
 
     bool just_interacted = false;
